@@ -7,13 +7,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from .serializers import *
-from .models import Event
 from django.views.decorators.csrf import ensure_csrf_cookie
-
-from rest_framework.authentication import SessionAuthentication
-from rest_framework.permissions import IsAuthenticated
-
-from rest_framework.authtoken.models import Token
 
 class RegistrationView(APIView):
     def post(self, request, format=None):
@@ -47,7 +41,6 @@ class LoginView(APIView):
             user = serializer.validated_data
 
             login(request, user)
-            print("Session key after login:", request.session.session_key)
 
             return Response(
                 {
@@ -67,35 +60,4 @@ class LoginView(APIView):
                 "message": serializer.error_messages
             },
             status=status.HTTP_400_BAD_REQUEST
-        )
-
-class TaskView(APIView):
-    authentication_classes=[ SessionAuthentication ]
-    permission_classes = [IsAuthenticated]
-
-    def get(self, request, format=None):
-        if request.user.is_authenticated:
-            tasks = request.user.tasks.all()
-            serializer = TaskSerializer(tasks, many=True)
-            
-            return Response(
-                serializer.data,
-                status=status.HTTP_200_OK
-            )
-        else:
-            return Response(
-                {
-                    "message": "User not authenticated",
-                },
-                status=status.HTTP_401_UNAUTHORIZED
-            )
-        
-class EventView(APIView):
-    def get(self, request, format=None):
-        events = Event.objects.all()
-        serializer = EventSerializer(events, many=True)
-        
-        return Response(
-            serializer.data,
-            status=status.HTTP_200_OK
         )

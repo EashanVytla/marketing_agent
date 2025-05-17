@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Task, Event
 from django.contrib.auth import authenticate
 
 class RegistrationSerializer(serializers.ModelSerializer):
@@ -35,13 +34,3 @@ class LoginSerializer(serializers.Serializer):
             raise serializers.ValidationError("Authentication failed")
 
         return user
-    
-class TaskSerializer(serializers.ModelSerializer):
-    class Meta():
-        model = Task
-        fields = ["title", "description", "user"]
-
-class EventSerializer(serializers.ModelSerializer):
-    class Meta():
-        model = Event
-        fields = ["name", "description", "date"]
