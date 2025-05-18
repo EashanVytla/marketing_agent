@@ -19,6 +19,7 @@ from django.urls import path
 from users.views import *
 from tasks.views import *
 from events.views import *
+from agent.views import *
 from django.conf import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
@@ -29,6 +30,7 @@ urlpatterns = [
     path("login", LoginView.as_view(), name="login"),
     path("task", TaskView.as_view(), name="task"),
     path("event", EventView.as_view(), name="event"),
+    path("agent/job", JobView.as_view(), name="job"),
 ]
 
 

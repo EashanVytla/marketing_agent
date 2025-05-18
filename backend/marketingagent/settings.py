@@ -26,7 +26,10 @@ SECRET_KEY = 'django-insecure-t8pq$7^on8v24w9ys^c4a53tqdxk9pj*hy+=tqy-xvsfk3&0e0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+]
 
 
 # Application definition
@@ -47,6 +50,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -54,21 +58,22 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 ]
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
 ]
 
-# Session settings
-SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Ensure sessions are stored in the database
-SESSION_COOKIE_NAME = 'sessionid'  # Default session cookie name
-SESSION_COOKIE_AGE = 1209600  # Session expiry time in seconds (2 weeks by default)
-SESSION_COOKIE_SECURE = False  # Set to True in production (requires HTTPS)
-SESSION_COOKIE_SAMESITE = 'Lax'  # Required for cross-origin cookies
-SESSION_COOKIE_HTTPONLY = True  # Prevents client-side JavaScript from accessing the cookie
+CSRF_COOKIE_SECURE    = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE    = "None"
+SESSION_COOKIE_SAMESITE = "None"
 
 ROOT_URLCONF = 'marketingagent.urls'
 

@@ -12,7 +12,7 @@ const Dashboard = ({firstName, lastName}) => {
                 try {
                     const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/event`, {
                         method: "GET",
-                        credentials: "include"
+                        credentials: 'include'
                     });
 
                     if (response.ok) {
@@ -29,7 +29,7 @@ const Dashboard = ({firstName, lastName}) => {
                 try {
                     const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/task`, {
                         method: "GET",
-                        credentials: "include"
+                        credentials: 'include'
                     });
             
                     if (response.ok) {
@@ -58,6 +58,12 @@ const Dashboard = ({firstName, lastName}) => {
                 onClick={() => navigate('/agent-request')}
             >
                 Create Agent Request
+            </button>
+            <button 
+                className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mb-6 ml-4"
+                onClick={() => navigate('/add-event')}
+            >
+                Add Event
             </button>
             
             <h2 className="text-xl font-semibold mb-2">Upcoming Events:</h2>

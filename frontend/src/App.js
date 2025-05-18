@@ -2,6 +2,7 @@ import './App.css';
 import Login from "./pages/Login"
 import Dashboard from "./pages/Dashboard"
 import AgentRequest from "./pages/AgentRequest" // Add this import
+import AddEvent from "./pages/AddEvent"
 import React from "react"
 import { useState } from "react"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
@@ -37,6 +38,9 @@ function App() {
             {/* Add the new route */}
             <Route path="agent-request" exact
               element={<AgentRequest />}
+            />
+            <Route path="add-event" exact
+              element={<AddEvent />}
             />
           </Routes>
         </div>

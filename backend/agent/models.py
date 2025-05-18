@@ -13,7 +13,7 @@ class ChatMsg(models.Model):
 class Job(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     description = models.CharField(max_length=200)
-    created_at  = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
 class ContextItem(models.Model):
     """A single piece of context tied to a Job."""

@@ -8,7 +8,9 @@ from rest_framework.views import APIView
 from rest_framework import status
 from .serializers import *
 from django.views.decorators.csrf import ensure_csrf_cookie
+from django.utils.decorators import method_decorator
 
+@method_decorator(ensure_csrf_cookie, name='dispatch')
 class RegistrationView(APIView):
     def post(self, request, format=None):
         serializer = RegistrationSerializer(data=request.data)
@@ -31,10 +33,10 @@ class RegistrationView(APIView):
             },
             status=status.HTTP_400_BAD_REQUEST
         )
-    
+
+@method_decorator(ensure_csrf_cookie, name='dispatch')
 class LoginView(APIView):
     def post(self, request, format=None):
-        print(request.data)
         serializer = LoginSerializer(data=request.data)
 
         if serializer.is_valid():

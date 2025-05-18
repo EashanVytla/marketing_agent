@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { getCookie } from "../utils/csrf";
 
 const AgentRequest = () => {
     const [formParams, setFormParams] = useState({
@@ -54,17 +55,16 @@ const AgentRequest = () => {
         }
         
         try {
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/agent/request`, {
+            const csrfToken = getCookie("csrftoken");
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/agent/job`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    "X-CSRFToken": csrfToken,
                 },
                 body: JSON.stringify({
-                    action_type: "create_job",
-                    params: {
-                        event_id: formParams.event_id,
-                        description: formParams.description
-                    }
+                    event: formParams.event_id,           // <-- must match the model field name
+                    description: formParams.description,  // <-- must match the model field name
                 }),
                 credentials: "include"
             });
